@@ -1,0 +1,56 @@
+﻿  tp-transform.cpp
+E:\openglproj\TP_transform\dragon.datah(3,974103): warning C4305: 'initializing': truncation from 'double' to 'const float'
+E:\openglproj\TP_transform\tp-transform.cpp(196,7): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+E:\openglproj\TP_transform\tp-transform.cpp(196,7): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\openglproj\TP_transform\tp-transform.cpp(196,18): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+E:\openglproj\TP_transform\tp-transform.cpp(196,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\openglproj\TP_transform\tp-transform.cpp(202,7): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+E:\openglproj\TP_transform\tp-transform.cpp(202,7): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\openglproj\TP_transform\tp-transform.cpp(202,20): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+E:\openglproj\TP_transform\tp-transform.cpp(202,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\openglproj\TP_transform\tp-transform.cpp(204,7): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+E:\openglproj\TP_transform\tp-transform.cpp(204,7): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\openglproj\TP_transform\tp-transform.cpp(204,23): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+E:\openglproj\TP_transform\tp-transform.cpp(204,23): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\openglproj\TP_transform\tp-transform.cpp(211,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewAttachShader referenced in function "public: bool __thiscall GLShader::Create(void)" (?Create@GLShader@@QAE_NXZ)
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewCompileShader referenced in function "public: bool __thiscall GLShader::LoadFragmentShader(char const *)" (?LoadFragmentShader@GLShader@@QAE_NPBD@Z)
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewCreateProgram referenced in function "public: bool __thiscall GLShader::Create(void)" (?Create@GLShader@@QAE_NXZ)
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewCreateShader referenced in function "public: bool __thiscall GLShader::LoadFragmentShader(char const *)" (?LoadFragmentShader@GLShader@@QAE_NPBD@Z)
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewDeleteProgram referenced in function "public: bool __thiscall GLShader::Create(void)" (?Create@GLShader@@QAE_NXZ)
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewDeleteShader referenced in function "public: void __thiscall GLShader::Destroy(void)" (?Destroy@GLShader@@QAEXXZ)
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewDetachShader referenced in function "public: void __thiscall GLShader::Destroy(void)" (?Destroy@GLShader@@QAEXXZ)
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewGetProgramInfoLog referenced in function "public: bool __thiscall GLShader::Create(void)" (?Create@GLShader@@QAE_NXZ)
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewGetProgramiv referenced in function "public: bool __thiscall GLShader::Create(void)" (?Create@GLShader@@QAE_NXZ)
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewGetShaderInfoLog referenced in function "bool __cdecl ValidateShader(unsigned int)" (?ValidateShader@@YA_NI@Z)
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewGetShaderiv referenced in function "bool __cdecl ValidateShader(unsigned int)" (?ValidateShader@@YA_NI@Z)
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewLinkProgram referenced in function "public: bool __thiscall GLShader::Create(void)" (?Create@GLShader@@QAE_NXZ)
+GLShader.obj : error LNK2019: unresolved external symbol __imp____glewShaderSource referenced in function "public: bool __thiscall GLShader::LoadFragmentShader(char const *)" (?LoadFragmentShader@GLShader@@QAE_NPBD@Z)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp__glewInit@0 referenced in function _main
+tp-transform.obj : error LNK2019: unresolved external symbol _glfwInit referenced in function _main
+tp-transform.obj : error LNK2019: unresolved external symbol _glfwTerminate referenced in function _main
+tp-transform.obj : error LNK2019: unresolved external symbol _glfwCreateWindow referenced in function _main
+tp-transform.obj : error LNK2019: unresolved external symbol _glfwWindowShouldClose referenced in function _main
+tp-transform.obj : error LNK2019: unresolved external symbol _glfwGetWindowSize referenced in function "public: void __thiscall Application::Display(struct GLFWwindow *)" (?Display@Application@@QAEXPAUGLFWwindow@@@Z)
+tp-transform.obj : error LNK2019: unresolved external symbol _glfwPollEvents referenced in function _main
+tp-transform.obj : error LNK2019: unresolved external symbol _glfwGetTime referenced in function "public: void __thiscall Application::Display(struct GLFWwindow *)" (?Display@Application@@QAEXPAUGLFWwindow@@@Z)
+tp-transform.obj : error LNK2019: unresolved external symbol _glfwMakeContextCurrent referenced in function _main
+tp-transform.obj : error LNK2019: unresolved external symbol _glfwSwapBuffers referenced in function _main
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewBindBuffer referenced in function "public: bool __thiscall Application::Initialize(void)" (?Initialize@Application@@QAE_NXZ)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewBufferData referenced in function "public: bool __thiscall Application::Initialize(void)" (?Initialize@Application@@QAE_NXZ)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewDeleteBuffers referenced in function "public: void __thiscall Application::Terminate(void)" (?Terminate@Application@@QAEXXZ)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewGenBuffers referenced in function "public: bool __thiscall Application::Initialize(void)" (?Initialize@Application@@QAE_NXZ)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewEnableVertexAttribArray referenced in function "public: bool __thiscall Application::Initialize(void)" (?Initialize@Application@@QAE_NXZ)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewGetAttribLocation referenced in function "public: bool __thiscall Application::Initialize(void)" (?Initialize@Application@@QAE_NXZ)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewGetUniformLocation referenced in function "public: void __thiscall Application::Display(struct GLFWwindow *)" (?Display@Application@@QAEXPAUGLFWwindow@@@Z)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewUniform1f referenced in function "public: void __thiscall Application::Display(struct GLFWwindow *)" (?Display@Application@@QAEXPAUGLFWwindow@@@Z)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewUniform3f referenced in function "public: void __thiscall Application::Display(struct GLFWwindow *)" (?Display@Application@@QAEXPAUGLFWwindow@@@Z)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewUniform3fv referenced in function "public: void __thiscall Application::Display(struct GLFWwindow *)" (?Display@Application@@QAEXPAUGLFWwindow@@@Z)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewUniformMatrix4fv referenced in function "public: void __thiscall Application::Display(struct GLFWwindow *)" (?Display@Application@@QAEXPAUGLFWwindow@@@Z)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewUseProgram referenced in function "public: void __thiscall Application::Display(struct GLFWwindow *)" (?Display@Application@@QAEXPAUGLFWwindow@@@Z)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewVertexAttribPointer referenced in function "public: bool __thiscall Application::Initialize(void)" (?Initialize@Application@@QAE_NXZ)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewBindVertexArray referenced in function "public: void __thiscall Application::Display(struct GLFWwindow *)" (?Display@Application@@QAEXPAUGLFWwindow@@@Z)
+tp-transform.obj : error LNK2019: unresolved external symbol __imp____glewGenVertexArrays referenced in function "public: bool __thiscall Application::Initialize(void)" (?Initialize@Application@@QAE_NXZ)
+E:\openglproj\TP_transform\glfw\include\GLFW\glfw3dll.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+E:\openglproj\TP_transform\glew-2.1.0\lib\glew32.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+E:\openglproj\TP_transform\Debug\TP_transform.exe : fatal error LNK1120: 38 unresolved externals
