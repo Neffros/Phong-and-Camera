@@ -1,112 +1,52 @@
-#include <GL/glew.h>
+﻿#include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
-#include "dragon.datah"
-#include "GLShader.h"
-
 #include <math.h>
-#include <Camera.h>
+#include <glm.hpp>
+#include "DragonData.h"
+#include "myShader.h"
+#include "myMesh.h"
+#include "Camera.h"
 
 Camera cam;
 
-struct Vertex
-{
-	float x, y;
-	float r, g, b;
-};
-
-struct Mesh
-{
-	GLuint VBO;
-	GLuint IBO;
-	GLuint VAO;
-	GLuint indicesCount;
-};
-
-Mesh g_Mesh;
-
 struct Application
 {
-	GLShader shader;
 
+	// INTIALIZE DRAGON MESH
+	vector<Vertex> vertices;
+	vector<unsigned int> indices;
+	Mesh mesh;
+	myShader shader;
 	bool Initialize() 
 	{
-		shader.LoadVertexShader("transform.vs.glsl");
-		shader.LoadFragmentShader("transform.fs.glsl");
-		shader.Create();
+		shader = myShader("transform.vs.glsl", "transform.fs.glsl");
 
-		// VAO
+	
+		for (int i = 0; i < sizeof(DragonVertices) / sizeof(float)-8; i += 8)
+		{
+			glm::vec3 pos(DragonVertices[i], DragonVertices[i + 1], DragonVertices[i + 2]);
+			glm::vec3 norm(DragonVertices[i+4],DragonVertices[i+5], DragonVertices[i+6]);
+			glm::vec2 text(DragonVertices[i + 7], DragonVertices[i + 8]);
+			vertices.push_back(Vertex{pos, norm, text});
+		}
 
-		// VBO et IBO
-
-		const float triangle[] = {
-			-0.8f, +0.8f,	// 1er sommet #0
-			1.f  , 0.f, 0.f,
-			0.0f, -0.8f,	// 2eme sommet #1
-			0.f, 1.f, 0.f,
-			+0.8f, +0.8f,	// 3eme sommet #2
-			0.f, 0.f, 1.f
-		};
-
-		const unsigned short indices[] = { 0, 1, 2 };
-		g_Mesh.indicesCount = 3;
-
-		glGenBuffers(1, &g_Mesh.VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, g_Mesh.VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 3, triangle, GL_STATIC_DRAW);
-		glGenBuffers(1, &g_Mesh.IBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_Mesh.IBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * 3, indices, GL_STATIC_DRAW);
-
-		// Exercice 2 : VAO
-
-		glGenVertexArrays(1, &g_Mesh.VAO);
+		for (int i = 0; i < sizeof(DragonIndices) / sizeof(uint16_t); i++) {
+			indices.push_back(DragonIndices[i]);
+		}
+		mesh = Mesh(vertices, indices);
 		
-		// ATTENTION: le VAO va maintenant enregister tous les parametres
-		// des fonctions glEnableVertexAttribArray, glVertexAttribPointer, mais aussi
-		// glBindBuffer quand le 1er param est GL_(ELEMENT)_ARRAY_BUFFER
-		glBindVertexArray(g_Mesh.VAO);
-
-		glBindBuffer(GL_ARRAY_BUFFER, g_Mesh.VBO);
-
-		GLuint program = shader.GetProgram();
-
-		// on indique a OpenGL la structuration des sommets
-		// stride = ecart en octets entre deux sommets
-		GLint posLocation = glGetAttribLocation(program, "a_Position");
-		glVertexAttribPointer(posLocation, 2/*(x,y)*/, GL_FLOAT, false,
-			sizeof(Vertex)/*stride*/, (void*)0);
-		glEnableVertexAttribArray(posLocation);
-
-		GLint colorLocation = glGetAttribLocation(program, "a_Color");
-		glVertexAttribPointer(colorLocation, 3/*(r,g,b)*/, GL_FLOAT, false,
-			sizeof(Vertex)/*stride*/
-			, (void*)(sizeof(float) * 2)); // facon C
-			//, offsetof(Vertex, r));	// en C99/C11/C++11
-
-		glEnableVertexAttribArray(colorLocation);
-
-		// dessine moi un triangle
-		//glDrawArrays(GL_TRIANGLES, 0, 3 /* nb sommets*/);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_Mesh.IBO);
-
-		// Penser a reinit le VAO actuellement utilise a zero si on souhaite manipuler les BO
-		glBindVertexArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 		return true;
 	}
 
 	void Terminate() 
 	{
-		glGenVertexArrays(1, &g_Mesh.VAO);
+		/*glGenVertexArrays(1, &g_Mesh.VAO);
 		glDeleteBuffers(1, &g_Mesh.VBO);
 		glDeleteBuffers(1, &g_Mesh.IBO);
 
 
-		shader.Destroy();
+		shader.Destroy();*/
 	}
 
 	void Display(GLFWwindow* window)
@@ -120,8 +60,8 @@ struct Application
 		glClear(GL_COLOR_BUFFER_BIT);
 
 
-		GLuint program = shader.GetProgram();
-		glUseProgram(program);
+	//	GLuint program = shader.GetProgram();
+	//	glUseProgram(program);
 
 
 		// Exercice 1 ----
@@ -132,27 +72,27 @@ struct Application
 
 		// on indique a OpenGL la structuration des sommets
 		// stride = ecart en octets entre deux sommets
-		GLint posLocation = glGetAttribLocation(program, "a_Position");
-		glVertexAttribPointer(posLocation, 2/*(x,y)*/, GL_FLOAT, false,
-			sizeof(Vertex)/*stride*/, (void*)0);
-		glEnableVertexAttribArray(posLocation);
+	//	GLint posLocation = glGetAttribLocation(program, "a_Position");
+		//glVertexAttribPointer(posLocation, 2/*(x,y)*/, GL_FLOAT, false,
+			//sizeof(Vertex)/*stride*/, (void*)0);
+	//	glEnableVertexAttribArray(posLocation);
 
-		GLint colorLocation = glGetAttribLocation(program, "a_Color");
-		glVertexAttribPointer(colorLocation, 3/*(r,g,b)*/, GL_FLOAT, false,
-			sizeof(Vertex)/*stride*/
-			, (void*)(sizeof(float) * 2)); // facon C
+		//GLint colorLocation = glGetAttribLocation(program, "a_Color");
+		//glVertexAttribPointer(colorLocation, 3/*(r,g,b)*/, GL_FLOAT, false,
+			//sizeof(Vertex)/*stride*/
+			//, (void*)(sizeof(float) * 2)); // facon C
 			//, offsetof(Vertex, r));	// en C99/C11/C++11
 
-		glEnableVertexAttribArray(colorLocation);
+		//glEnableVertexAttribArray(colorLocation);
 
 		// dessine moi un triangle
 		//glDrawArrays(GL_TRIANGLES, 0, 3 /* nb sommets*/);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_Mesh.IBO);
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_Mesh.IBO);
 
 
-		glDrawElements(GL_TRIANGLES, 3 /* nb indices*/
-			, GL_UNSIGNED_SHORT, (void*)0);
+		//glDrawElements(GL_TRIANGLES, 3 /* nb indices*/
+			//, GL_UNSIGNED_SHORT, (void*)0);
 #endif
 		// Exercice 2 ---
 
@@ -169,7 +109,7 @@ struct Application
 			v'x = a*vx + b*vy
 			v'y = c*vx + d*vy
 
-		// coordonn�es homogenes
+		// coordonnées homogenes
 		// on passe a la dimension superieur
 
 		| a b tx | *(x
@@ -181,16 +121,16 @@ struct Application
 			v'z = 1
 			*/
 
-		GLint timeLoc = glGetUniformLocation(program, "u_Time");
+		GLint timeLoc = glGetUniformLocation(shader.getProgramId(), "u_Time");
 		float time = static_cast<float>(glfwGetTime());
 		glUniform1f(timeLoc, time);
 
-		GLint baseColorLoc = glGetUniformLocation(program, "u_BaseColor");
+		GLint baseColorLoc = glGetUniformLocation(shader.getProgramId(), "u_BaseColor");
 		glUniform3f(baseColorLoc, 0.2f, 0.5f, 0.1f);
 		float baseColor[] = { 0.7f, 0.5f, 0.3f };
 		glUniform3fv(baseColorLoc, 1, baseColor);
 
-		GLint tmatLoc = glGetUniformLocation(program, "u_TranslationMatrix");
+		GLint tmatLoc = glGetUniformLocation(shader.getProgramId(), "u_TranslationMatrix");
 		float translationMatrix[] = {
 			1.f, 0.f, 0.f, 0.f, // 1ere colonne
 			0.f, 1.f, 0.f, 0.f, // 2eme colonne
@@ -199,7 +139,7 @@ struct Application
 		};
 		glUniformMatrix4fv(tmatLoc, 1, false, translationMatrix);
 
-		GLint rmatLoc = glGetUniformLocation(program, "u_RotationMatrix");
+		GLint rmatLoc = glGetUniformLocation(shader.getProgramId(), "u_RotationMatrix");
 		float rotationMatrix[] = {
 			cos(time), 0.f, -sin(time), 0.f, // 1ere colonne
 			0.f, 1.f, 0.f, 0.f, // 2eme colonne
@@ -208,7 +148,7 @@ struct Application
 		};
 		glUniformMatrix4fv(rmatLoc, 1, false, rotationMatrix);
 
-		GLint projLoc = glGetUniformLocation(program, "u_ProjectionMatrix");
+		GLint projLoc = glGetUniformLocation(shader.getProgramId(), "u_ProjectionMatrix");
 		float fov = 45.f * 3.14159f / 180.f;
 		float f = 1.f / tan(fov / 2.f);
 		float a = (float)width / (float)height;
@@ -223,16 +163,17 @@ struct Application
 
 		glUniformMatrix4fv(projLoc, 1, false, projectionMatrix);
 
-		GLint viewLoc = glGetUniformLocation(program, "u_ViewMatrix");
+		GLint viewLoc = glGetUniformLocation(shader.getProgramId(), "u_ViewMatrix");
 		//myVector3 targetPos(-cos(time), -sin(time), -10.f);et un 
 		//myVector3 targetPos(0, -sin(time), -10.f);
-		myVector3 targetPos(-2,0,-10); // x and y have to be opposite values 
+		myVector3 targetPos(50,500,-10000); // x and y have to be opposite values 
 		float* viewMat = cam.lookAt(targetPos); //check if size of float is right if not working 
 		glUniformMatrix4fv(viewLoc, 1, false, viewMat);
 
-		glBindVertexArray(g_Mesh.VAO);
+		mesh.draw(shader);
+	/*	glBindVertexArray(g_Mesh.VAO);
 		glDrawElements(GL_TRIANGLES, g_Mesh.indicesCount /* nb indices*/
-			, GL_UNSIGNED_SHORT, (void*)0);
+		//	, GL_UNSIGNED_SHORT, (void*)0);
 
 	}
 };

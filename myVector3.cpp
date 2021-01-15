@@ -1,6 +1,5 @@
-#include <myVector3.h>
 #include <cmath>
-
+#include "myVector3.h"
 myVector3 myVector3::normalize()
 {
 	float norm = calculateNorm();
