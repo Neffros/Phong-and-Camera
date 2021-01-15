@@ -1,5 +1,4 @@
-#version 120
-
+#version 430 core
 // float : 1 seule composante
 // vec2 : 2 composantes float
 // vec3 : 3 ""  
@@ -9,19 +8,19 @@
 // Multiple Data
 
 // attribute = inputs du vertex shader
-attribute vec3 a_Position;
-attribute vec3 a_Normales;
-attribute vec3 a_Textcoords;
-attribute vec3 a_Color;
+layout(location=0) in vec3 a_Position;
+layout(location=1) in vec3 a_Normales;
+layout(location=2) in vec3 a_Textcoords;
+layout(location=3) in vec3 a_Color;
 
 // uniform = constantes pour un appel de rendu (glDraw)
 
-uniform float u_Time;
+layout(location=0)  uniform float u_Time;
 
-uniform mat4 u_TranslationMatrix;
-uniform mat4 u_RotationMatrix;
-uniform mat4 u_ProjectionMatrix;
-uniform mat4 u_ViewMatrix;
+layout(location=1)  uniform mat4 u_TranslationMatrix;
+layout(location=2)  uniform mat4 u_RotationMatrix;
+layout(location=3)  uniform mat4 u_ProjectionMatrix;
+layout(location=4)  uniform mat4 u_ViewMatrix;
 
 // varying = output du vertex shader
 
@@ -32,6 +31,8 @@ varying vec3 v_textcoords;
 void main(void)
 {
 	v_Color = a_Color;
+
+	
 
 	vec4 position = u_TranslationMatrix * u_RotationMatrix * vec4(a_Position, 1.0) ;
 

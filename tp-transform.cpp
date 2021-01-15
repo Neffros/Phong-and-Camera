@@ -17,29 +17,31 @@ struct Application
 	vector<unsigned int> indices;
 	Mesh mesh;
 	myShader shader;
-	bool Initialize() 
+	bool Initialize()
 	{
 		shader = myShader("transform.vs.glsl", "transform.fs.glsl");
 
-	
-		for (int i = 0; i < sizeof(DragonVertices) / sizeof(float)-7; i += 8)
-		{
-			glm::vec3 pos(DragonVertices[i], DragonVertices[i + 1], DragonVertices[i + 2]);
-			glm::vec3 norm(DragonVertices[i+3],DragonVertices[i+4], DragonVertices[i+5]);
-			glm::vec2 text(DragonVertices[i + 6], DragonVertices[i + 7]);
-			vertices.push_back(Vertex{pos, norm, text});
-		}
 
-		for (int i = 0; i < sizeof(DragonIndices) / sizeof(uint16_t); i++) {
-			indices.push_back(DragonIndices[i]);
-		}
+			for (int i = 0; i < sizeof(DragonVertices) / sizeof(float)-8; i += 8)
+			{
+				glm::vec3 pos(DragonVertices[i], DragonVertices[i + 1], DragonVertices[i + 2]);
+				glm::vec3 norm(DragonVertices[i+3],DragonVertices[i+4], DragonVertices[i+5]);
+				glm::vec2 text(DragonVertices[i + 6], DragonVertices[i + 7]);
+				vertices.push_back(Vertex{pos, norm, text});
+			}
+
+			for (int i = 0; i < sizeof(DragonIndices) / sizeof(uint16_t); i++) {
+				indices.push_back(DragonIndices[i]);
+			}
+
+	
 		mesh = Mesh(vertices, indices);
-		
+
 
 		return true;
 	}
 
-	void Terminate() 
+	void Terminate()
 	{
 		/*glGenVertexArrays(1, &g_Mesh.VAO);
 		glDeleteBuffers(1, &g_Mesh.VBO);
@@ -51,7 +53,7 @@ struct Application
 
 	void Display(GLFWwindow* window)
 	{
-				shader.use();
+		shader.use();
 
 		/* Render here */
 		int width, height;
@@ -95,9 +97,9 @@ struct Application
 		float far = 1000.f;
 		float near = 0.1f;
 		float projectionMatrix[] = {
-			f/a, 0.f, 0.f, 0.f, // 1ere colonne
+			f / a, 0.f, 0.f, 0.f, // 1ere colonne
 			0.f, f, 0.f, 0.f, // 2eme colonne
-			0.f, 0.f, (far+near)/(near-far), -1.f, // 3eme colonne
+			0.f, 0.f, (far + near) / (near - far), -1.f, // 3eme colonne
 			0.f, 0.f, (2.f * far * near) / (near - far), 0.f // 4eme colonne
 		};
 
@@ -106,13 +108,13 @@ struct Application
 		GLint viewLoc = glGetUniformLocation(shader.getProgramId(), "u_ViewMatrix");
 		//myVector3 targetPos(-cos(time), -sin(time), -10.f);et un 
 		//myVector3 targetPos(0, -sin(time), -10.f);
-		myVector3 targetPos(0,0,-10); // x and y have to be opposite values 
+		myVector3 targetPos(0, 0, -10); // x and y have to be opposite values 
 		float* viewMat = cam.lookAt(targetPos); //check if size of float is right if not working 
 		glUniformMatrix4fv(viewLoc, 1, false, viewMat);
 		mesh.draw(shader);
-	/*	glBindVertexArray(g_Mesh.VAO);
-		glDrawElements(GL_TRIANGLES, g_Mesh.indicesCount /* nb indices*/
-		//	, GL_UNSIGNED_SHORT, (void*)0);
+		/*	glBindVertexArray(g_Mesh.VAO);
+			glDrawElements(GL_TRIANGLES, g_Mesh.indicesCount /* nb indices*/
+			//	, GL_UNSIGNED_SHORT, (void*)0);
 
 	}
 };
