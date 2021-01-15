@@ -2,9 +2,10 @@
 
 // varying = input du fragment shader
 
-varying vec3 v_Color;
 
 uniform vec3 u_BaseColor;
+varying vec3 v_Color;
+
 
 void main(void)
 {

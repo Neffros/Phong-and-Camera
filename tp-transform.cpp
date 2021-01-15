@@ -22,11 +22,11 @@ struct Application
 		shader = myShader("transform.vs.glsl", "transform.fs.glsl");
 
 	
-		for (int i = 0; i < sizeof(DragonVertices) / sizeof(float)-8; i += 8)
+		for (int i = 0; i < sizeof(DragonVertices) / sizeof(float)-7; i += 8)
 		{
 			glm::vec3 pos(DragonVertices[i], DragonVertices[i + 1], DragonVertices[i + 2]);
-			glm::vec3 norm(DragonVertices[i+4],DragonVertices[i+5], DragonVertices[i+6]);
-			glm::vec2 text(DragonVertices[i + 7], DragonVertices[i + 8]);
+			glm::vec3 norm(DragonVertices[i+3],DragonVertices[i+4], DragonVertices[i+5]);
+			glm::vec2 text(DragonVertices[i + 6], DragonVertices[i + 7]);
 			vertices.push_back(Vertex{pos, norm, text});
 		}
 
@@ -51,6 +51,8 @@ struct Application
 
 	void Display(GLFWwindow* window)
 	{
+				shader.use();
+
 		/* Render here */
 		int width, height;
 		glfwGetWindowSize(window, &width, &height);
@@ -58,68 +60,6 @@ struct Application
 		glViewport(0, 0, width, height);
 		glClearColor(0.5f, 0.5f, 0.5f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT);
-
-
-	//	GLuint program = shader.GetProgram();
-	//	glUseProgram(program);
-
-
-		// Exercice 1 ----
-#if 0
-		// A partir de cette ligne, glVertexAttribPointer va considerer
-		// que le dernier parametre est une adresse relative (offset) et plus absolue
-		glBindBuffer(GL_ARRAY_BUFFER, g_Mesh.VBO);
-
-		// on indique a OpenGL la structuration des sommets
-		// stride = ecart en octets entre deux sommets
-	//	GLint posLocation = glGetAttribLocation(program, "a_Position");
-		//glVertexAttribPointer(posLocation, 2/*(x,y)*/, GL_FLOAT, false,
-			//sizeof(Vertex)/*stride*/, (void*)0);
-	//	glEnableVertexAttribArray(posLocation);
-
-		//GLint colorLocation = glGetAttribLocation(program, "a_Color");
-		//glVertexAttribPointer(colorLocation, 3/*(r,g,b)*/, GL_FLOAT, false,
-			//sizeof(Vertex)/*stride*/
-			//, (void*)(sizeof(float) * 2)); // facon C
-			//, offsetof(Vertex, r));	// en C99/C11/C++11
-
-		//glEnableVertexAttribArray(colorLocation);
-
-		// dessine moi un triangle
-		//glDrawArrays(GL_TRIANGLES, 0, 3 /* nb sommets*/);
-
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_Mesh.IBO);
-
-
-		//glDrawElements(GL_TRIANGLES, 3 /* nb indices*/
-			//, GL_UNSIGNED_SHORT, (void*)0);
-#endif
-		// Exercice 2 ---
-
-		// cas general matriciel lorsque matrice "lineaire"
-		/*v' = M * v
-
-		// translation, classe de transformation "affine"
-		v' = v(x,y) + t(x,y)
-		v'(vx + tx, vy + ty)
-
-		| a b | * (x
-		| c d |	   y)
-
-			v'x = a*vx + b*vy
-			v'y = c*vx + d*vy
-
-		// coordonnées homogenes
-		// on passe a la dimension superieur
-
-		| a b tx | *(x
-		| c d ty | y
-		| 0 0 1 | 1 )
-
-			v'x = a*vx + b*vy + tx
-			v'y = c*vx + d*vy + ty
-			v'z = 1
-			*/
 
 		GLint timeLoc = glGetUniformLocation(shader.getProgramId(), "u_Time");
 		float time = static_cast<float>(glfwGetTime());
@@ -166,10 +106,9 @@ struct Application
 		GLint viewLoc = glGetUniformLocation(shader.getProgramId(), "u_ViewMatrix");
 		//myVector3 targetPos(-cos(time), -sin(time), -10.f);et un 
 		//myVector3 targetPos(0, -sin(time), -10.f);
-		myVector3 targetPos(50,500,-10000); // x and y have to be opposite values 
+		myVector3 targetPos(0,0,-10); // x and y have to be opposite values 
 		float* viewMat = cam.lookAt(targetPos); //check if size of float is right if not working 
 		glUniformMatrix4fv(viewLoc, 1, false, viewMat);
-
 		mesh.draw(shader);
 	/*	glBindVertexArray(g_Mesh.VAO);
 		glDrawElements(GL_TRIANGLES, g_Mesh.indicesCount /* nb indices*/
