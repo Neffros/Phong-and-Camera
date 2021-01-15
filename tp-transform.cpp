@@ -1,62 +1,31 @@
-#include <GL/glew.h>
+﻿#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "dragon.datah"
-#include "GLShader.h"
-
+#include "DragonData.h"
+#include "myShader.h"
+#include "myMesh.h"
 #include <math.h>
 #include <Camera.h>
-
+#include <glm.hpp>
 Camera cam;
-
-struct Vertex
-{
-	float x, y;
-	float r, g, b;
-};
-
-struct Mesh
-{
-	GLuint VBO;
-	GLuint IBO;
-	GLuint VAO;
-	GLuint indicesCount;
-};
-
-Mesh g_Mesh;
+myShader shader("transform.vs.glsl", "transform.fs.glsl");
 
 struct Application
 {
-	GLShader shader;
-
+	
 	bool Initialize() 
 	{
-		shader.LoadVertexShader("transform.vs.glsl");
-		shader.LoadFragmentShader("transform.fs.glsl");
-		shader.Create();
+		vector<Vertex> res;
+		// format X,Y,Z, NX, NY, NZ, U, V = 8 floats par vertex
+		for (int i = 0; i < sizeof(DragonVertices) / sizeof(float); i += 8)
+		{
+			glm::vec3 pos(DragonVertices[i], DragonVertices[i + 1], DragonVertices[i + 2]);
+			glm::vec3 norm(DragonVertices[i+4],DragonVertices[i+5], DragonVertices[i+6]);
+			glm::vec2 text(DragonVertices[i + 7], DragonVertices[i + 8]);
+			res.push_back(Vertex{pos, norm, text});
+		}
+		Mesh mesh(res, DragonIndices);
 
-		// VAO
-
-		// VBO et IBO
-
-		const float triangle[] = {
-			-0.8f, +0.8f,	// 1er sommet #0
-			1.f  , 0.f, 0.f,
-			0.0f, -0.8f,	// 2eme sommet #1
-			0.f, 1.f, 0.f,
-			+0.8f, +0.8f,	// 3eme sommet #2
-			0.f, 0.f, 1.f
-		};
-
-		const unsigned short indices[] = { 0, 1, 2 };
-		g_Mesh.indicesCount = 3;
-
-		glGenBuffers(1, &g_Mesh.VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, g_Mesh.VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 3, triangle, GL_STATIC_DRAW);
-		glGenBuffers(1, &g_Mesh.IBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_Mesh.IBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * 3, indices, GL_STATIC_DRAW);
 
 		// Exercice 2 : VAO
 
@@ -169,7 +138,7 @@ struct Application
 			v'x = a*vx + b*vy
 			v'y = c*vx + d*vy
 
-		// coordonn�es homogenes
+		// coordonnées homogenes
 		// on passe a la dimension superieur
 
 		| a b tx | *(x
