@@ -1,6 +1,7 @@
 #include "myFile.h"
 #include "myShader.h"
 
+
 GLuint myShader::compile(std::string shader, GLenum type)
 {
 	GLuint id = glCreateShader(type);

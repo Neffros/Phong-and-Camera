@@ -15,14 +15,14 @@ Mesh::Mesh()
 void Mesh::draw(myShader& shader)
 {
 	glBindVertexArray(VAO);
-	glDrawElements(GL_LINE_LOOP, indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
 
 void Mesh::addLastVertexAtPosition(double x, double y, double z)
 {
 	this->indices.push_back(this->indices.size());
-	this->vertices.push_back(Vertex{ myVector3(x, y, z) });
+	this->vertices.push_back(Vertex{ glm::vec3(x, y, z) });
 	initRenderingData();
 }
 
@@ -52,7 +52,7 @@ void Mesh::initRenderingData()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 	// vertex normals
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
 	
 	// vertex texture coords
 	glEnableVertexAttribArray(2);

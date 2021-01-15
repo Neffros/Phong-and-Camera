@@ -1,12 +1,3 @@
 ﻿  tp-transform.cpp
-E:\openglproj\TP_transform\dragon.datah(3,974103): warning C4305: 'initializing': truncation from 'double' to 'const float'
-E:\openglproj\TP_transform\tp-transform.cpp(204,7): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-E:\openglproj\TP_transform\tp-transform.cpp(204,7): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-E:\openglproj\TP_transform\tp-transform.cpp(204,20): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-E:\openglproj\TP_transform\tp-transform.cpp(204,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-E:\openglproj\TP_transform\tp-transform.cpp(206,7): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-E:\openglproj\TP_transform\tp-transform.cpp(206,7): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-E:\openglproj\TP_transform\tp-transform.cpp(206,23): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-E:\openglproj\TP_transform\tp-transform.cpp(206,23): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-E:\openglproj\TP_transform\tp-transform.cpp(213,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  TP_transform.vcxproj -> E:\openglproj\TP_transform\x64\Debug\TP_transform.exe
+D:\Dev\ESGI_OPENGL\4A\Phong-and-Camera\DragonData.h(4,974103): warning C4305: 'initialisation' : troncation de 'double' à 'const float'
+  TP_transform.vcxproj -> D:\Dev\ESGI_OPENGL\4A\Phong-and-Camera\x64\Debug\TP_transform.exe
