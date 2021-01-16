@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 #include <stddef.h>
 #include <glm.hpp>
+#include "gtc/type_ptr.hpp"
 using namespace std;
 
 
@@ -25,12 +26,11 @@ public:
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
 	unsigned int VAO;
+	glm::vec3 color;
 
 	Mesh(const vector<Vertex> vertices, const vector<unsigned int> indices);
 	Mesh();
 	void draw(myShader& shader);
-	void addLastVertexAtPosition(double x, double y, double z);
-	void removeLastVertex();
 
 private:
 	unsigned int VBO, EBO;
