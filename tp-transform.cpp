@@ -20,21 +20,22 @@ struct Application
 	bool Initialize()
 	{
 		shader = myShader("transform.vs.glsl", "transform.fs.glsl");
+		glEnable(GL_DEPTH_TEST);
 
 
-			for (int i = 0; i < sizeof(DragonVertices) / sizeof(float)-8; i += 8)
-			{
-				glm::vec3 pos(DragonVertices[i], DragonVertices[i + 1], DragonVertices[i + 2]);
-				glm::vec3 norm(DragonVertices[i+3],DragonVertices[i+4], DragonVertices[i+5]);
-				glm::vec2 text(DragonVertices[i + 6], DragonVertices[i + 7]);
-				vertices.push_back(Vertex{pos, norm, text});
-			}
+		for (int i = 0; i < sizeof(DragonVertices) / sizeof(float) - 7; i += 8)
+		{
+			glm::vec3 pos(DragonVertices[i], DragonVertices[i + 1], DragonVertices[i + 2]);
+			glm::vec3 norm(DragonVertices[i + 3], DragonVertices[i + 4], DragonVertices[i + 5]);
+			glm::vec2 text(DragonVertices[i + 6], DragonVertices[i + 7]);
+			vertices.push_back(Vertex{ pos, norm, text });
+		}
 
-			for (int i = 0; i < sizeof(DragonIndices) / sizeof(uint16_t); i++) {
-				indices.push_back(DragonIndices[i]);
-			}
+		for (int i = 0; i < sizeof(DragonIndices) / sizeof(uint16_t); i++) {
+			indices.push_back(DragonIndices[i]);
+		}
 
-	
+
 		mesh = Mesh(vertices, indices);
 
 
@@ -53,6 +54,7 @@ struct Application
 
 	void Display(GLFWwindow* window)
 	{
+
 		shader.use();
 
 		/* Render here */
@@ -61,16 +63,13 @@ struct Application
 
 		glViewport(0, 0, width, height);
 		glClearColor(0.5f, 0.5f, 0.5f, 1.f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		GLint timeLoc = glGetUniformLocation(shader.getProgramId(), "u_Time");
 		float time = static_cast<float>(glfwGetTime());
 		glUniform1f(timeLoc, time);
 
-		GLint baseColorLoc = glGetUniformLocation(shader.getProgramId(), "u_BaseColor");
-		glUniform3f(baseColorLoc, 0.2f, 0.5f, 0.1f);
-		float baseColor[] = { 0.7f, 0.5f, 0.3f };
-		glUniform3fv(baseColorLoc, 1, baseColor);
+
 
 		GLint tmatLoc = glGetUniformLocation(shader.getProgramId(), "u_TranslationMatrix");
 		float translationMatrix[] = {
@@ -105,16 +104,24 @@ struct Application
 
 		glUniformMatrix4fv(projLoc, 1, false, projectionMatrix);
 
+		GLint colorLocation = glGetUniformLocation(shader.getProgramId(), "u_Color");
+		glm::vec3 color(1.0f, 0.0f, 0.0f);
+		glUniform3fv(colorLocation, 1, glm::value_ptr(color));
+
 		GLint viewLoc = glGetUniformLocation(shader.getProgramId(), "u_ViewMatrix");
 		//myVector3 targetPos(-cos(time), -sin(time), -10.f);et un 
 		//myVector3 targetPos(0, -sin(time), -10.f);
-		myVector3 targetPos(0, 0, -10); // x and y have to be opposite values 
+		myVector3 targetPos(0, -8, -35); // x and y have to be opposite values 
 		float* viewMat = cam.lookAt(targetPos); //check if size of float is right if not working 
 		glUniformMatrix4fv(viewLoc, 1, false, viewMat);
 		mesh.draw(shader);
 		/*	glBindVertexArray(g_Mesh.VAO);
 			glDrawElements(GL_TRIANGLES, g_Mesh.indicesCount /* nb indices*/
 			//	, GL_UNSIGNED_SHORT, (void*)0);
+
+			// color	
+	
+
 
 	}
 };

@@ -11,7 +11,6 @@
 layout(location=0) in vec3 a_Position;
 layout(location=1) in vec3 a_Normales;
 layout(location=2) in vec3 a_Textcoords;
-layout(location=3) in vec3 a_Color;
 
 // uniform = constantes pour un appel de rendu (glDraw)
 
@@ -24,23 +23,18 @@ layout(location=4)  uniform mat4 u_ViewMatrix;
 
 // varying = output du vertex shader
 
-varying vec3 v_Color;
-varying vec3 v_normales;
-varying vec3 v_textcoords;
+out vec3 v_normales;
+out vec3 v_textcoords;
+out vec3 v_position;
 
 void main(void)
 {
-	v_Color = a_Color;
-
-	
-
-	vec4 position = u_TranslationMatrix * u_RotationMatrix * vec4(a_Position, 1.0) ;
-
-	vec4 finalPosition = u_ProjectionMatrix * u_ViewMatrix * position;
-
-	gl_Position = finalPosition;
-
-	v_normales = a_Normales;
+	v_normales =  transpose(inverse(mat3( u_RotationMatrix))) * a_Normales;
 	v_textcoords = a_Textcoords;
 
+	vec4 position = u_TranslationMatrix * u_RotationMatrix * vec4(a_Position, 1.0) ;
+	v_position = position.xyz;
+	gl_Position =  u_ProjectionMatrix * u_ViewMatrix * position;
+
+	
 }
