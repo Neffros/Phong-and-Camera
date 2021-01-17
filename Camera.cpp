@@ -60,14 +60,5 @@ float* Camera::lookAt(myVector3 target)
 		forward.getX(), forward.getY(), forward.getZ(), -forward.getX() * position.getX() - forward.getY() * position.getY() - forward.getZ() * position.getZ(),
 		0,0,0,1
 	};
-
-	/*float matrixView[] = {
-		1,0,0,0,
-		0,1,0,0,
-		0,0,1,0,
-		0,0,0,1
-	};*/
-
 	return matrixView;
-	//setForward();
 }

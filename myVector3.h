@@ -19,9 +19,7 @@ class myVector3
 		void setZ(float newZ);
 		myVector3 cross(myVector3 vec2);
 		myVector3& operator + (myVector3 vec)
-		{
-			//m_rows.swap(m.m_rows)	 	 	 	 		  		 	  
-			//swap(m);	 	 	 	 		  		 	  
+		{	 	 	 		  		 	  
 			return *this;
 		}
 		myVector3 operator+(const myVector3& vec2) const;

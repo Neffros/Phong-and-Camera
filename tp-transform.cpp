@@ -110,21 +110,11 @@ struct Application
 		GLfloat camPos[] = { cam.getPosition().getX(),cam.getPosition().getY(),cam.getPosition().getZ() };
 		glUniform3fv(camPosLocation, 1, camPos);
 
-		GLint viewLoc = glGetUniformLocation(shader.getProgramId(), "u_ViewMatrix");
-		//myVector3 targetPos(-cos(time), -sin(time), -10.f);et un 
-		//myVector3 targetPos(0, -sin(time), -10.f);
-		myVector3 targetPos(0, 5, 20); // x and y have to be opposite values 
-		float* viewMat = cam.lookAt(targetPos); //check if size of float is right if not working 
+		GLint viewLoc = glGetUniformLocation(shader.getProgramId(), "u_ViewMatrix");		
+		myVector3 targetPos(0, 5, 20); 
+		float* viewMat = cam.lookAt(targetPos); 
 		glUniformMatrix4fv(viewLoc, 1, false, viewMat);
-		mesh.draw(shader);
-		/*	glBindVertexArray(g_Mesh.VAO);
-			glDrawElements(GL_TRIANGLES, g_Mesh.indicesCount /* nb indices*/
-			//	, GL_UNSIGNED_SHORT, (void*)0);
-
-			// color	
-
-
-
+		mesh.draw(shader);	
 	}
 };
 
