@@ -127,7 +127,7 @@ int main(void)
 		return -1;
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(960, 720, "TP transformations et projection 15/12", NULL, NULL);
+	window = glfwCreateWindow(960, 720, "OPEN DRAGON DATAAAA !!!", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
