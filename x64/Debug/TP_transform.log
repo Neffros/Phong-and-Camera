@@ -1,3 +1,14 @@
-﻿  tp-transform.cpp
+﻿  Camera.cpp
+  GLShader.cpp
+  myFile.cpp
+D:\Dev\ESGI_OPENGL\4A\Phong-and-Camera\myFile.cpp(18,12): warning C4477: 'printf' : la chaîne de format '%s' nécessite un argument de type 'char *', mais l'argument variadique 1 est de type 'std::string'
+  myMesh.cpp
+D:\Dev\ESGI_OPENGL\4A\Phong-and-Camera\myMesh.cpp(18,71): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
+  myShader.cpp
+  myVector3.cpp
+  tp-transform.cpp
 D:\Dev\ESGI_OPENGL\4A\Phong-and-Camera\DragonData.h(4,974103): warning C4305: 'initialisation' : troncation de 'double' à 'const float'
+  Génération de code en cours...
+D:\Dev\ESGI_OPENGL\4A\Phong-and-Camera\Camera.cpp(71): warning C4172: retourne l'adresse d'une variable locale ou : matrixView temporaire
+  LINK : D:\Dev\ESGI_OPENGL\4A\Phong-and-Camera\x64\Debug\TP_transform.exe introuvable ou non généré par la dernière édition de liens incrémentielle ; édition de liens complète en cours
   TP_transform.vcxproj -> D:\Dev\ESGI_OPENGL\4A\Phong-and-Camera\x64\Debug\TP_transform.exe
