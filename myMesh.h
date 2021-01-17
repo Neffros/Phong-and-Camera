@@ -31,6 +31,7 @@ public:
 	Mesh(const vector<Vertex> vertices, const vector<unsigned int> indices);
 	Mesh();
 	void draw(myShader& shader);
+	void terminate();
 
 private:
 	unsigned int VBO, EBO;

@@ -53,3 +53,10 @@ void Mesh::initRenderingData()
 	glBindVertexArray(0);
 	
 }
+
+void Mesh::terminate()
+{
+	glGenVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+}

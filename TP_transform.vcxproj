@@ -164,7 +164,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="GLShader.cpp" />
     <ClCompile Include="myFile.cpp" />
     <ClCompile Include="myMesh.cpp" />
     <ClCompile Include="myShader.cpp" />
@@ -174,7 +173,6 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DragonData.h" />
-    <ClInclude Include="GLShader.h" />
     <ClInclude Include="myFile.h" />
     <ClInclude Include="myMesh.h" />
     <ClInclude Include="MyShader.h" />

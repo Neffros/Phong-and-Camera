@@ -6,7 +6,7 @@
 class myShader {
 
 private:
-	GLuint programId;
+	GLuint programId, vertId, fragId;
 
 	GLuint compile(std::string shader, GLenum type);
 	void linkProgramme(GLuint vertexShaderId, GLuint fragmentShaderId);
@@ -18,6 +18,7 @@ public:
 	myShader();
 	void use();
 	GLuint getProgramId() { return programId; }
+	void terminate();
 
 	void setFloat(const char* key, GLfloat value) { glUniform1f(glGetUniformLocation(programId, key), value); }
 	void setColor(const char* key, GLfloat x, GLfloat y, GLfloat z) { glUniform3f(glGetUniformLocation(programId, key), x, y, z); }

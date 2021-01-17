@@ -22,7 +22,7 @@ struct Application
 	{
 		shader = myShader("transform.vs.glsl", "transform.fs.glsl");
 		glEnable(GL_DEPTH_TEST);
-		cam.setPosition(myVector3(0,0,0));
+		cam.setPosition(myVector3(0, 0, 0));
 
 		for (int i = 0; i < sizeof(DragonVertices) / sizeof(float) - 7; i += 8)
 		{
@@ -45,12 +45,9 @@ struct Application
 
 	void Terminate()
 	{
-		/*glGenVertexArrays(1, &g_Mesh.VAO);
-		glDeleteBuffers(1, &g_Mesh.VBO);
-		glDeleteBuffers(1, &g_Mesh.IBO);
 
-
-		shader.Destroy();*/
+		mesh.terminate();
+		shader.terminate();
 	}
 
 	void Display(GLFWwindow* window)
@@ -63,7 +60,7 @@ struct Application
 		glfwGetWindowSize(window, &width, &height);
 
 		glViewport(0, 0, width, height);
-		glClearColor(0.15f,	0.1f,	0.2f, 1.f);
+		glClearColor(0.15f, 0.1f, 0.2f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		GLint timeLoc = glGetUniformLocation(shader.getProgramId(), "u_Time");
@@ -125,7 +122,7 @@ struct Application
 			//	, GL_UNSIGNED_SHORT, (void*)0);
 
 			// color	
-	
+
 
 
 	}
