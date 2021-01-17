@@ -108,6 +108,10 @@ struct Application
 		glm::vec3 color(1.0f, 0.0f, 0.0f);
 		glUniform3fv(colorLocation, 1, glm::value_ptr(color));
 
+		GLint camPosLocation = glGetUniformLocation(shader.getProgramId(), "u_viewPos");
+		GLfloat camPos[] = { cam.getPosition().getX(),cam.getPosition().getY(),cam.getPosition().getZ() };
+		glUniform3fv(camPosLocation, 1, camPos);
+
 		GLint viewLoc = glGetUniformLocation(shader.getProgramId(), "u_ViewMatrix");
 		//myVector3 targetPos(-cos(time), -sin(time), -10.f);et un 
 		//myVector3 targetPos(0, -sin(time), -10.f);
