@@ -6,9 +6,9 @@ Ce projet permet d'afficher un dragon dans un shader en utilisant la méthode d'
 
 # Installation
 Ce programme est configuré pour Visual Studio 2019
--Télécharger glew 2.1.0
--Télécharger GLFW3
--Télécharger glm
+* Télécharger glew 2.1.0
+* Télécharger GLFW3
+* Télécharger glm
 
 placer ces trois librairies dans le dossier vendor. 
 
