@@ -7,7 +7,6 @@
 #include "myMesh.h"
 #include "Camera.h"
 
-Camera cam;
 
 struct Application
 {
@@ -17,11 +16,13 @@ struct Application
 	vector<unsigned int> indices;
 	Mesh mesh;
 	myShader shader;
+	Camera cam;
+
 	bool Initialize()
 	{
 		shader = myShader("transform.vs.glsl", "transform.fs.glsl");
 		glEnable(GL_DEPTH_TEST);
-
+		cam.setPosition(myVector3(0,0,0));
 
 		for (int i = 0; i < sizeof(DragonVertices) / sizeof(float) - 7; i += 8)
 		{
@@ -62,7 +63,7 @@ struct Application
 		glfwGetWindowSize(window, &width, &height);
 
 		glViewport(0, 0, width, height);
-		glClearColor(0.5f, 0.5f, 0.5f, 1.f);
+		glClearColor(0.15f,	0.1f,	0.2f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		GLint timeLoc = glGetUniformLocation(shader.getProgramId(), "u_Time");
@@ -74,9 +75,9 @@ struct Application
 		GLint tmatLoc = glGetUniformLocation(shader.getProgramId(), "u_TranslationMatrix");
 		float translationMatrix[] = {
 			1.f, 0.f, 0.f, 0.f, // 1ere colonne
-			0.f, 1.f, 0.f, 0.f, // 2eme colonne
-			0.f, 0.f, 1.f, 0.f, // 3eme colonne
-			0, 0, -10.f, 1.f // 4eme colonne
+			0.f, 1.f, 0.f, 0, // 2eme colonne
+			0.f, 0.f, 1.f, 0, // 3eme colonne
+			0, 0, 20.f, 1.f // 4eme colonne
 		};
 		glUniformMatrix4fv(tmatLoc, 1, false, translationMatrix);
 
@@ -90,7 +91,7 @@ struct Application
 		glUniformMatrix4fv(rmatLoc, 1, false, rotationMatrix);
 
 		GLint projLoc = glGetUniformLocation(shader.getProgramId(), "u_ProjectionMatrix");
-		float fov = 45.f * 3.14159f / 180.f;
+		float fov = 60.f * 3.14159f / 180.f;
 		float f = 1.f / tan(fov / 2.f);
 		float a = (float)width / (float)height;
 		float far = 1000.f;
@@ -115,7 +116,7 @@ struct Application
 		GLint viewLoc = glGetUniformLocation(shader.getProgramId(), "u_ViewMatrix");
 		//myVector3 targetPos(-cos(time), -sin(time), -10.f);et un 
 		//myVector3 targetPos(0, -sin(time), -10.f);
-		myVector3 targetPos(0, -8, -35); // x and y have to be opposite values 
+		myVector3 targetPos(0, 5, 20); // x and y have to be opposite values 
 		float* viewMat = cam.lookAt(targetPos); //check if size of float is right if not working 
 		glUniformMatrix4fv(viewLoc, 1, false, viewMat);
 		mesh.draw(shader);
